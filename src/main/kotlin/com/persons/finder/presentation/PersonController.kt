@@ -20,8 +20,22 @@ class PersonController(
         return ResponseEntity(PersonDto.fromEntity(person), HttpStatus.CREATED)
     }
 
+    @GetMapping
+    fun getPersons(
+        @RequestParam(required = true) id: List<Long>): ResponseEntity<List<PersonDto>> {
+        val persons = if (id.isEmpty()) {
+            emptyList()
+        } else {
+            personsService.getByIds(id).map { PersonDto.fromEntity(it) }
+        }
+        return ResponseEntity(persons, HttpStatus.OK)
+    }
 
-
+    @GetMapping("/{id}")
+    fun getPerson(@PathVariable id: Long): ResponseEntity<PersonDto> {
+        val person = personsService.getById(id)
+        return ResponseEntity(PersonDto.fromEntity(person), HttpStatus.OK)
+    }
 
 
 
@@ -44,12 +58,4 @@ class PersonController(
         // John wants to know who is around his location within a radius of 10km
         // API would be called using John's id and a radius 10km
      */
-
-    /*
-        TODO GET API to retrieve a person or persons name using their ids
-        // Example
-        // John has the list of people around them, now they need to retrieve everybody's names to display in the app
-        // API would be called using person or persons ids
-     */
-
 }

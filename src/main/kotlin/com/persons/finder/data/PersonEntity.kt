@@ -12,5 +12,5 @@ data class PersonEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
-    val name: String
+    val name: String = ""
 )

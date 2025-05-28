@@ -26,6 +26,47 @@ paths:
         "400":
           description: "Bad Request"
 
+    get:
+      summary: "GET api/v1/persons"
+      operationId: "getPersons"
+      parameters:
+        - name: "id"
+          in: "query"
+          required: true
+          schema:
+            type: "array"
+            items:
+              type: "integer"
+              format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/PersonDto"
+
+  /api/v1/persons/{id}:
+    get:
+      summary: "GET api/v1/persons/{id}"
+      operationId: "getPerson"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+            format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PersonDto"
+
 components:
   schemas:
     CreatePersonRequest:

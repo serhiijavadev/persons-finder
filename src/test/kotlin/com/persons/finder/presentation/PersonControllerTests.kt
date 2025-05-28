@@ -1,14 +1,16 @@
 package com.persons.finder.presentation
 
 import com.persons.finder.ParentIT
+import net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.context.jdbc.Sql
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @SpringBootTest
 class PersonControllerTests : ParentIT() {
@@ -57,6 +59,43 @@ class PersonControllerTests : ParentIT() {
         val expected: String? = readFromFile(getJsonDataPrefixPath() + "response-createPerson-empty-name.json")
 
         assertThatJson(content).isEqualTo(expected)
+    }
+
+    @Test
+    @Sql(scripts = ["classpath:datasets/sql/purge.sql", "classpath:datasets/sql/PersonControllerTests/insert-persons.sql"])
+    fun `should get persons by ids`() {
+        val mvcResult = mockMvc.perform(
+            MockMvcRequestBuilders.get("/api/v1/persons?id=1&id=2&id=3"))
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andReturn()
+
+        val content = mvcResult.getResponse().getContentAsString()
+        val expected: String? = readFromFile(getJsonDataPrefixPath() + "response-getPersonsByIds.json")
+
+        assertThatJson(content).isEqualTo(expected)
+    }
+
+    @Test
+    @Sql(scripts = ["classpath:datasets/sql/purge.sql", "classpath:datasets/sql/PersonControllerTests/insert-persons.sql"])
+    fun `should get a person by id`() {
+        val mvcResult = mockMvc.perform(
+            MockMvcRequestBuilders.get("/api/v1/persons/1"))
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andReturn()
+
+        val content = mvcResult.getResponse().getContentAsString()
+        val expected: String? = readFromFile(getJsonDataPrefixPath() + "response-getPersonById.json")
+
+        assertThatJson(content).isEqualTo(expected)
+    }
+
+    @Test
+    @Sql(scripts = ["classpath:datasets/sql/purge.sql"])
+    fun `should return not found when getting non-existent person`() {
+        mockMvc.perform(get("/persons/1000"))
+            .andExpect(status().isNotFound)
     }
 
 }

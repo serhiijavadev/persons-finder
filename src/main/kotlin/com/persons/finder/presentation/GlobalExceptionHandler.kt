@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
+import javax.persistence.EntityNotFoundException
 import javax.validation.ConstraintViolationException
 
 @ControllerAdvice
@@ -27,6 +28,12 @@ class GlobalExceptionHandler {
             errors[path] = violation.message
         }
         return ResponseEntity(errors, HttpStatus.BAD_REQUEST)
+    }
+
+    @ExceptionHandler(EntityNotFoundException::class)
+    fun handleEntityNotFound(ex: EntityNotFoundException): ResponseEntity<Map<String, String>> {
+        val errors = mapOf("error" to (ex.message ?: "Entity not found"))
+        return ResponseEntity(errors, HttpStatus.NOT_FOUND)
     }
 
     @ExceptionHandler(Exception::class)
