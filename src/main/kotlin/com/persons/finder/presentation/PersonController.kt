@@ -21,6 +21,16 @@ class PersonController(
     }
 
 
+
+
+
+
+
+
+
+
+
+
     /*
         TODO PUT API to update/create someone's location using latitude and longitude
         (JSON) Body
@@ -41,10 +51,5 @@ class PersonController(
         // John has the list of people around them, now they need to retrieve everybody's names to display in the app
         // API would be called using person or persons ids
      */
-
-    @GetMapping("")
-    fun getExample(): String {
-        return "Hello Example"
-    }
 
 }

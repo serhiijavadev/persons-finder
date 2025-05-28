@@ -17,12 +17,15 @@ paths:
               $ref: "#/components/schemas/CreatePersonRequest"
         required: true
       responses:
-        "200":
-          description: "OK"
+        "201":
+          description: "Person created successfully"
           content:
             '*/*':
               schema:
                 $ref: "#/components/schemas/PersonDto"
+        "400":
+          description: "Bad Request"
+
 components:
   schemas:
     CreatePersonRequest:

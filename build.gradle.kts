@@ -29,6 +29,9 @@ dependencies {
 
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.testcontainers:junit-jupiter:1.17.3")
+	testImplementation("org.testcontainers:postgresql:1.17.3")
+	testImplementation("net.javacrumbs.json-unit:json-unit-assertj:2.36.0")
 }
 
 tasks.withType<KotlinCompile> {
