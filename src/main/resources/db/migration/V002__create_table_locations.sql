@@ -1,0 +1,6 @@
+CREATE TABLE locations (
+    id BIGINT PRIMARY KEY,
+    latitude DOUBLE PRECISION NOT NULL,
+    longitude DOUBLE PRECISION NOT NULL,
+    CONSTRAINT fk_person FOREIGN KEY (id) REFERENCES persons(id)
+);

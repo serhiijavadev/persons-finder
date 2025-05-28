@@ -2,7 +2,9 @@ package com.persons.finder.presentation
 
 import com.persons.finder.domain.services.PersonsService
 import com.persons.finder.presentation.dtos.CreatePersonRequest
+import com.persons.finder.presentation.dtos.LocationDto
 import com.persons.finder.presentation.dtos.PersonDto
+import com.persons.finder.presentation.dtos.PersonLocationRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -37,18 +39,17 @@ class PersonController(
         return ResponseEntity(PersonDto.fromEntity(person), HttpStatus.OK)
     }
 
+    @PutMapping("/{id}/location")
+    fun updateLocation(
+        @PathVariable id: Long,
+        @Valid @RequestBody request: PersonLocationRequest
+    ): ResponseEntity<LocationDto> {
+        val location = personsService.updateLocation(id, request.latitude, request.longitude)
+        return ResponseEntity(LocationDto.fromEntity(location), HttpStatus.OK)
+    }
 
 
 
-
-
-
-
-
-    /*
-        TODO PUT API to update/create someone's location using latitude and longitude
-        (JSON) Body
-     */
 
 
     /*

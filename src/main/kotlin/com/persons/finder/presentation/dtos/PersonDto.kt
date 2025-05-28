@@ -1,7 +1,9 @@
 package com.persons.finder.presentation.dtos
 
+import com.persons.finder.data.LocationEntity
 import com.persons.finder.data.PersonEntity
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 
 data class PersonDto(
     val id: Long,
@@ -27,4 +29,28 @@ data class CreatePersonRequest(
         )
     }
 }
+
+data class LocationDto(
+    val id: Long,
+    val latitude: Double,
+    val longitude: Double
+) {
+    companion object {
+        fun fromEntity(location: LocationEntity): LocationDto {
+            return LocationDto(
+                id = location.id,
+                latitude = location.latitude,
+                longitude = location.longitude
+            )
+        }
+    }
+}
+
+data class PersonLocationRequest(
+    @field:NotNull(message = "Latitude is required")
+    val latitude: Double,
+
+    @field:NotNull(message = "Longitude is required")
+    val longitude: Double
+)
 

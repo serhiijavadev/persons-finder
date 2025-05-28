@@ -28,4 +28,14 @@ GET http://localhost:8080/api/v1/persons/1000
 GET http://localhost:8080/api/v1/persons?id=1&id=2&id=3
 
 
+###
+PUT http://localhost:8080/api/v1/persons/1/location
+Content-Type: application/json
+
+{
+  "latitude": -8.4095,
+  "longitude": 115.1889
+}
+
+
 
