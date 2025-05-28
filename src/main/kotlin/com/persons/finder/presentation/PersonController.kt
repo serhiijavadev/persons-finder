@@ -1,23 +1,31 @@
 package com.persons.finder.presentation
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import com.persons.finder.domain.services.PersonsService
+import com.persons.finder.presentation.dtos.CreatePersonRequest
+import com.persons.finder.presentation.dtos.PersonDto
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("api/v1/persons")
-class PersonController @Autowired constructor() {
+class PersonController(
+    private val personsService: PersonsService
+) {
+
+    @PostMapping
+    fun createPerson(@Valid @RequestBody request: CreatePersonRequest): ResponseEntity<PersonDto> {
+        val person = personsService.save(request.toEntity())
+        return ResponseEntity(PersonDto.fromEntity(person), HttpStatus.CREATED)
+    }
+
 
     /*
         TODO PUT API to update/create someone's location using latitude and longitude
         (JSON) Body
      */
 
-    /*
-        TODO POST API to create a 'person'
-        (JSON) Body and return the id of the created entity
-    */
 
     /*
         TODO GET API to retrieve people around query location with a radius in KM, Use query param for radius.
