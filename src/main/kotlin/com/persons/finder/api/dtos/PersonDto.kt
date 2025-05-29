@@ -1,9 +1,9 @@
-package com.persons.finder.presentation.dtos
+package com.persons.finder.api.dtos
 
-import com.persons.finder.data.LocationEntity
-import com.persons.finder.data.PersonEntity
 import com.persons.finder.domain.validation.ValidLatitude
 import com.persons.finder.domain.validation.ValidLongitude
+import com.persons.finder.persistence.LocationEntity
+import com.persons.finder.persistence.PersonEntity
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 

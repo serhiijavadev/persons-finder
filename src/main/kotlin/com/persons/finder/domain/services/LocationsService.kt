@@ -1,6 +1,6 @@
 package com.persons.finder.domain.services
 
-import com.persons.finder.data.LocationEntity
+import com.persons.finder.persistence.LocationEntity
 
 interface LocationsService {
     fun addLocation(location: LocationEntity): LocationEntity

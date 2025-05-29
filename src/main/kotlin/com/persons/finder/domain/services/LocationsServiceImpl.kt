@@ -1,8 +1,8 @@
 package com.persons.finder.domain.services
 
-import com.persons.finder.data.LocationEntity
-import com.persons.finder.data.repositories.LocationJpaRepository
 import com.persons.finder.domain.utils.calculateBoundingBox
+import com.persons.finder.persistence.LocationEntity
+import com.persons.finder.persistence.repositories.LocationJpaRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

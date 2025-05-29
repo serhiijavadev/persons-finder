@@ -1,7 +1,7 @@
-package com.persons.finder.presentation
+package com.persons.finder.api
 
+import com.persons.finder.api.dtos.*
 import com.persons.finder.domain.services.PersonsService
-import com.persons.finder.presentation.dtos.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

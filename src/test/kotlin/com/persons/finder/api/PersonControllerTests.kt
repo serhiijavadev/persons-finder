@@ -1,4 +1,4 @@
-package com.persons.finder.presentation
+package com.persons.finder.api
 
 import com.persons.finder.ParentIT
 import net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson

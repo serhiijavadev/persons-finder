@@ -1,4 +1,4 @@
-package com.persons.finder.presentation
+package com.persons.finder.api
 
 import com.persons.finder.domain.services.PersonsService
 import org.junit.jupiter.api.Test

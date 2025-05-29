@@ -1,6 +1,6 @@
-package com.persons.finder.data.repositories
+package com.persons.finder.persistence.repositories
 
-import com.persons.finder.data.LocationEntity
+import com.persons.finder.persistence.LocationEntity
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository

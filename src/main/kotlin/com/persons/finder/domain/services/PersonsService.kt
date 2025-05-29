@@ -1,8 +1,8 @@
 package com.persons.finder.domain.services
 
-import com.persons.finder.data.LocationEntity
-import com.persons.finder.data.PersonEntity
-import com.persons.finder.presentation.dtos.PersonNearbyDto
+import com.persons.finder.api.dtos.PersonNearbyDto
+import com.persons.finder.persistence.LocationEntity
+import com.persons.finder.persistence.PersonEntity
 
 interface PersonsService {
     fun getById(id: Long): PersonEntity
