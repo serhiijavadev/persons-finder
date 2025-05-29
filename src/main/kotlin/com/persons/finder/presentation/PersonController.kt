@@ -48,7 +48,15 @@ class PersonController(
         return ResponseEntity(LocationDto.fromEntity(location), HttpStatus.OK)
     }
 
-
+//    @GetMapping("/nearby")
+//    fun findNearby(
+//        @RequestParam lat: Double,
+//        @RequestParam lon: Double,
+//        @RequestParam @Positive radiusKm: Double
+//    ): ResponseEntity<List<PersonNearbyDto>> {
+//        val nearbyPersons = personsService.findNearby(lat, lon, radiusKm)
+//        return ResponseEntity(nearbyPersons, HttpStatus.OK)
+//    }
 
 
 

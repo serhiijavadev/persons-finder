@@ -2,6 +2,8 @@ package com.persons.finder.presentation.dtos
 
 import com.persons.finder.data.LocationEntity
 import com.persons.finder.data.PersonEntity
+import com.persons.finder.domain.validation.ValidLatitude
+import com.persons.finder.domain.validation.ValidLongitude
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
 
@@ -47,10 +49,17 @@ data class LocationDto(
 }
 
 data class PersonLocationRequest(
+    @field:ValidLatitude
     @field:NotNull(message = "Latitude is required")
     val latitude: Double,
 
+    @field:ValidLongitude
     @field:NotNull(message = "Longitude is required")
     val longitude: Double
+)
+
+data class PersonNearbyDto(
+    val id: Long,
+    val distance: Double? = null
 )
 

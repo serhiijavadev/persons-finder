@@ -1,11 +1,11 @@
 package com.persons.finder.presentation
 
+import com.persons.finder.domain.exceptions.PersonNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
-import javax.persistence.EntityNotFoundException
 import javax.validation.ConstraintViolationException
 
 @ControllerAdvice
@@ -30,9 +30,9 @@ class GlobalExceptionHandler {
         return ResponseEntity(errors, HttpStatus.BAD_REQUEST)
     }
 
-    @ExceptionHandler(EntityNotFoundException::class)
-    fun handleEntityNotFound(ex: EntityNotFoundException): ResponseEntity<Map<String, String>> {
-        val errors = mapOf("error" to (ex.message ?: "Entity not found"))
+    @ExceptionHandler(PersonNotFoundException::class)
+    fun handlePersonNotFound(ex: PersonNotFoundException): ResponseEntity<Map<String, String>> {
+        val errors = mapOf("error" to (ex.message ?: "Person not found"))
         return ResponseEntity(errors, HttpStatus.NOT_FOUND)
     }
 

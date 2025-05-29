@@ -4,10 +4,10 @@ import com.persons.finder.data.LocationEntity
 import com.persons.finder.data.PersonEntity
 import com.persons.finder.data.repositories.LocationJpaRepository
 import com.persons.finder.data.repositories.PersonJpaRepository
+import com.persons.finder.domain.exceptions.PersonNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import javax.persistence.EntityNotFoundException
 
 @Service
 class PersonsServiceImpl(
@@ -24,7 +24,7 @@ class PersonsServiceImpl(
             .orElseThrow {
                 val errorMessage = "Person not found with id: $id"
                 logger.error(errorMessage)
-                EntityNotFoundException(errorMessage)
+                PersonNotFoundException(errorMessage)
             }
     }
 
@@ -44,7 +44,7 @@ class PersonsServiceImpl(
             .orElseThrow {
                 val errorMessage = "Person not found with id: $personId"
                 logger.error(errorMessage)
-                EntityNotFoundException(errorMessage)
+                PersonNotFoundException(errorMessage)
             }
 
         val location = locationRepository.findById(personId).orElse(null)
