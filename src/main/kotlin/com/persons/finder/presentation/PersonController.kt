@@ -1,14 +1,12 @@
 package com.persons.finder.presentation
 
 import com.persons.finder.domain.services.PersonsService
-import com.persons.finder.presentation.dtos.CreatePersonRequest
-import com.persons.finder.presentation.dtos.LocationDto
-import com.persons.finder.presentation.dtos.PersonDto
-import com.persons.finder.presentation.dtos.PersonLocationRequest
+import com.persons.finder.presentation.dtos.*
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
+import javax.validation.constraints.Positive
 
 @RestController
 @RequestMapping("api/v1/persons")
@@ -48,23 +46,13 @@ class PersonController(
         return ResponseEntity(LocationDto.fromEntity(location), HttpStatus.OK)
     }
 
-//    @GetMapping("/nearby")
-//    fun findNearby(
-//        @RequestParam lat: Double,
-//        @RequestParam lon: Double,
-//        @RequestParam @Positive radiusKm: Double
-//    ): ResponseEntity<List<PersonNearbyDto>> {
-//        val nearbyPersons = personsService.findNearby(lat, lon, radiusKm)
-//        return ResponseEntity(nearbyPersons, HttpStatus.OK)
-//    }
-
-
-
-    /*
-        TODO GET API to retrieve people around query location with a radius in KM, Use query param for radius.
-        TODO API just return a list of persons ids (JSON)
-        // Example
-        // John wants to know who is around his location within a radius of 10km
-        // API would be called using John's id and a radius 10km
-     */
+    @GetMapping("/nearby")
+    fun findNearby(
+        @RequestParam lat: Double,
+        @RequestParam lon: Double,
+        @RequestParam @Positive radiusKm: Double
+    ): ResponseEntity<List<PersonNearbyDto>> {
+        val nearbyPersons = personsService.findNearby(lat, lon, radiusKm)
+        return ResponseEntity(nearbyPersons, HttpStatus.OK)
+    }
 }

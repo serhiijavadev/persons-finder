@@ -5,6 +5,8 @@ import com.persons.finder.data.PersonEntity
 import com.persons.finder.data.repositories.LocationJpaRepository
 import com.persons.finder.data.repositories.PersonJpaRepository
 import com.persons.finder.domain.exceptions.PersonNotFoundException
+import com.persons.finder.domain.utils.DistanceUtils
+import com.persons.finder.presentation.dtos.PersonNearbyDto
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -62,4 +64,12 @@ class PersonsServiceImpl(
         }
     }
 
+    override fun findNearby(latitude: Double, longitude: Double, radiusInKm: Double): List<PersonNearbyDto> {
+        val locations = locationsService.findAround(latitude, longitude, radiusInKm)
+
+        return locations.map { location ->
+            val distance = DistanceUtils.calculateDistance(latitude, longitude, location.latitude, location.longitude)
+            PersonNearbyDto(location.id, distance)
+        }.sortedBy { it.distance }
+    }
 }

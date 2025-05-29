@@ -2,6 +2,7 @@ package com.persons.finder.domain.services
 
 import com.persons.finder.data.LocationEntity
 import com.persons.finder.data.repositories.LocationJpaRepository
+import com.persons.finder.domain.utils.calculateBoundingBox
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -20,8 +21,17 @@ class LocationsServiceImpl(
         locationRepository.deleteById(id)
     }
 
+    @Transactional(readOnly = true)
     override fun findAround(latitude: Double, longitude: Double, radiusInKm: Double): List<LocationEntity> {
-        TODO("Not yet implemented")
+        val box = calculateBoundingBox(latitude, longitude, radiusInKm)
+        return locationRepository.findLocationsWithinRadius(
+            lat = latitude,
+            lon = longitude,
+            radiusKm = radiusInKm,
+            latMin = box.latMin,
+            latMax = box.latMax,
+            lonMin = box.lonMin,
+            lonMax = box.lonMax
+        )
     }
-
 }

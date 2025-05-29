@@ -171,4 +171,20 @@ class PersonControllerTests : ParentIT() {
             .andExpect(MockMvcResultMatchers.status().isNotFound)
     }
 
+    @Test
+    @Sql(scripts = ["classpath:datasets/sql/purge.sql", "classpath:datasets/sql/PersonControllerTests/insert-nearby.sql"])
+    fun `should return only persons within 100km of Singapore`() {
+        val mvcResult = mockMvc.perform(
+            MockMvcRequestBuilders.get("/api/v1/persons/nearby?lat=1.3521&lon=103.8198&radiusKm=100")
+        )
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andReturn()
+
+        val content = mvcResult.getResponse().getContentAsString()
+        val expected: String? = readFromFile(getJsonDataPrefixPath() + "response-nearBy.json")
+
+        assertThatJson(content).isEqualTo(expected)
+    }
+
 }
